@@ -1,31 +1,31 @@
 const properties = [
   {
     id: 1,
-    title: 'Modern 2BHK in Sector 50',
+    title: '2BHK in Unitech Fresco',
     bhk: 2,
     area_sqft: 1220,
     location: 'Gurgaon',
     sector: 'Sector 50',
     price_lakhs: 78,
     amenities: ['parking', 'gym', 'security', 'clubhouse'],
-    tags: ['good sunlight', 'near school', 'premium design'],
+    tags: ['good sunlight', 'near DPS school', 'park facing'],
     image: 'https://placehold.co/600x360/0f172a/ffd700?text=Sector+50+2BHK'
   },
   {
     id: 2,
-    title: 'Spacious 3BHK near Golf Course Road',
+    title: '3BHK near Golf Course Road',
     bhk: 3,
     area_sqft: 1620,
     location: 'Gurgaon',
     sector: 'Golf Course Road',
     price_lakhs: 145,
     amenities: ['parking', 'swimming pool', 'gym', 'security'],
-    tags: ['premium location', 'city view'],
+    tags: ['golf course access', 'city view'],
     image: 'https://placehold.co/600x360/0f172a/ffd700?text=Golf+Course+Road+3BHK'
   },
   {
     id: 3,
-    title: 'Comfortable 2BHK in Sector 57',
+    title: '2BHK in Sushant Lok',
     bhk: 2,
     area_sqft: 1180,
     location: 'Gurgaon',
@@ -37,19 +37,19 @@ const properties = [
   },
   {
     id: 4,
-    title: 'Luxury 4BHK in DLF Phase 1',
+    title: '4BHK in DLF Aralias',
     bhk: 4,
     area_sqft: 2400,
     location: 'Gurgaon',
     sector: 'DLF Phase 1',
     price_lakhs: 260,
     amenities: ['parking', 'gym', 'spa', 'security', 'clubhouse'],
-    tags: ['premium location', 'garden view'],
+    tags: ['premium location', 'large garden', 'near school'],
     image: 'https://placehold.co/600x360/0f172a/ffd700?text=DLF+Phase+1+4BHK'
   },
   {
     id: 5,
-    title: 'Compact 1BHK in Sector 45',
+    title: '1BHK in Sector 45',
     bhk: 1,
     area_sqft: 720,
     location: 'Gurgaon',
@@ -61,7 +61,7 @@ const properties = [
   },
   {
     id: 6,
-    title: 'Contemporary 3BHK in Sector 49',
+    title: '3BHK in Sector 49',
     bhk: 3,
     area_sqft: 1580,
     location: 'Gurgaon',
@@ -73,7 +73,7 @@ const properties = [
   },
   {
     id: 7,
-    title: 'Stylish 2BHK on Sohna Road',
+    title: '2BHK on Sohna Road',
     bhk: 2,
     area_sqft: 1300,
     location: 'Gurgaon',
@@ -85,7 +85,7 @@ const properties = [
   },
   {
     id: 8,
-    title: 'Elegant 3BHK in DLF Phase 2',
+    title: '3BHK in DLF Phase 2',
     bhk: 3,
     area_sqft: 1720,
     location: 'Gurgaon',
@@ -97,7 +97,7 @@ const properties = [
   },
   {
     id: 9,
-    title: 'Executive 2BHK in DLF Phase 3',
+    title: '2BHK in DLF Phase 3',
     bhk: 2,
     area_sqft: 1350,
     location: 'Gurgaon',
@@ -109,7 +109,7 @@ const properties = [
   },
   {
     id: 10,
-    title: 'Smart 2BHK in Sector 65',
+    title: '2BHK in Sector 65',
     bhk: 2,
     area_sqft: 1250,
     location: 'Gurgaon',
@@ -121,7 +121,7 @@ const properties = [
   },
   {
     id: 11,
-    title: 'Premium 3BHK in Sector 67',
+    title: '3BHK in Sector 67',
     bhk: 3,
     area_sqft: 1680,
     location: 'Gurgaon',
@@ -133,7 +133,7 @@ const properties = [
   },
   {
     id: 12,
-    title: 'Value 2BHK in Sector 70',
+    title: '2BHK in Sector 70',
     bhk: 2,
     area_sqft: 1125,
     location: 'Gurgaon',

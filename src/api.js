@@ -1,5 +1,6 @@
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const OPENROUTER_KEY = import.meta.env.VITE_OPENROUTER_KEY;
+//console.log("API KEY:", OPENROUTER_KEY);
 
 async function callOpenRouter(messages, maxTokens = 220) {
   if (!OPENROUTER_KEY) {
@@ -12,10 +13,10 @@ async function callOpenRouter(messages, maxTokens = 220) {
       Authorization: `Bearer ${OPENROUTER_KEY}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://360ghar.ai',
-      'X-Title': '360 Ghar AI Property Assistant'
+      'X-Title': '360 Ghar'
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3-8b-instruct:free',
+     model: 'openai/gpt-oss-20b:free',
       messages,
       max_tokens: maxTokens,
       temperature: 0.2
@@ -23,9 +24,10 @@ async function callOpenRouter(messages, maxTokens = 220) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`OpenRouter request failed: ${errorText}`);
-  }
+  const errorText = await response.text();
+  console.log("OPENROUTER ERROR:", errorText);
+  throw new Error(`OpenRouter request failed: ${errorText}`);
+}
 
   const data = await response.json();
   return data?.choices?.[0]?.message?.content?.trim() || '';
@@ -59,7 +61,7 @@ function safeParseJson(rawText) {
 }
 
 export async function parseSearchQuery(query) {
-  const systemPrompt = `You are a real estate filter extraction engine.
+  const systemPrompt = `You extract property search filters from user queries.
 Convert user property search queries into structured JSON.
 Return ONLY valid raw JSON.
 Never return markdown.
@@ -103,13 +105,13 @@ If information is missing, return null or [].`;
 }
 
 export async function generatePropertySummary(userQuery, property) {
-  const systemPrompt = `You are a helpful real-estate advisor at 360 Ghar.
+  const systemPrompt = `You are a property assistant for 360 Ghar.
 Explain why the property matches the user's search.
 Maximum 3 sentences.
 Mention budget fit.
 Mention location match.
 Mention at least one preference or amenity.
-Warm and professional tone.
+Keep the response simple and helpful.
 No bullet points.
 No marketing exaggeration.`;
 
@@ -129,7 +131,7 @@ Tags: ${property.tags.join(', ')}`;
 }
 
 export async function generateFollowupQuestion(query) {
-  const systemPrompt = `You are a real estate assistant.
+  const systemPrompt = `You help users find suitable properties.
 If the user's search query is vague or missing important details like BHK, budget, or location, ask one single follow-up clarification question.
 If the search is already specific enough, return an empty string.
 Return only the question or an empty string.`;

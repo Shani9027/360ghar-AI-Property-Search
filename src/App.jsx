@@ -4,32 +4,32 @@ import { parseSearchQuery, generatePropertySummary, generateFollowupQuestion } f
 
 const hasSpeechSupport = typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
 
-function normalizeText(value) {
+function toLower(value) {
   return String(value || '').toLowerCase();
 }
 
 function isExactMatch(property, filters) {
   if (filters.bhk !== null && property.bhk !== filters.bhk) return false;
   if (filters.max_price_lakhs !== null && property.price_lakhs > filters.max_price_lakhs) return false;
-  if (filters.location && !normalizeText(property.location).includes(normalizeText(filters.location)) && !normalizeText(property.sector).includes(normalizeText(filters.location))) return false;
+  if (filters.location && !toLower(property.location).includes(toLower(filters.location)) && !toLower(property.sector).includes(toLower(filters.location))) return false;
 
-  const allPreferences = [...filters.amenities, ...filters.preferences].map(normalizeText);
+  const allPreferences = [...filters.amenities, ...filters.preferences].map(toLower);
   return allPreferences.every((term) => {
     return [property.sector, property.location, ...property.amenities, ...property.tags]
-      .some((value) => normalizeText(value).includes(term));
+      .some((value) => toLower(value).includes(term));
   });
 }
 
-function scoreProperty(property, filters) {
+function getScore(property, filters) {
   let score = 0;
-  const locationMatch = filters.location && (normalizeText(property.location).includes(normalizeText(filters.location)) || normalizeText(property.sector).includes(normalizeText(filters.location)));
+  const locationMatch = filters.location && (toLower(property.location).includes(toLower(filters.location)) || toLower(property.sector).includes(toLower(filters.location)));
   if (locationMatch) score += 40;
   if (filters.max_price_lakhs !== null && property.price_lakhs <= filters.max_price_lakhs) score += 30;
   if (filters.bhk !== null && property.bhk === filters.bhk) score += 20;
 
-  const preferenceTerms = [...filters.amenities, ...filters.preferences].map(normalizeText);
+  const preferenceTerms = [...filters.amenities, ...filters.preferences].map(toLower);
   preferenceTerms.forEach((term) => {
-    const found = [...property.amenities, ...property.tags].some((value) => normalizeText(value).includes(term));
+    const found = [...property.amenities, ...property.tags].some((value) => toLower(value).includes(term));
     if (found) score += 10;
   });
 
@@ -76,17 +76,17 @@ function App() {
       const parsed = await parseSearchQuery(trimmed);
       setFilters(parsed);
 
-      const exactMatches = properties.filter((property) => isExactMatch(property, parsed));
-      const ranked = [...properties]
-        .map((property) => ({ property, score: scoreProperty(property, parsed) }))
+      const matchedProperties  = properties.filter((property) => isExactMatch(property, parsed));
+      const sortedProperties  = [...properties]
+        .map((property) => ({ property, score: getScore(property, parsed) }))
         .sort((a, b) => b.score - a.score)
         .map((item) => item.property);
 
-      if (exactMatches.length) {
-        setDisplayProperties(exactMatches);
+      if (matchedProperties.length) {
+        setDisplayProperties(matchedProperties);
         setExactMatchFound(true);
       } else {
-        setDisplayProperties(ranked);
+        setDisplayProperties(sortedProperties);
         setExactMatchFound(false);
       }
 
@@ -164,7 +164,7 @@ function App() {
         <div className="hero-copy">
           <p className="eyebrow">360 Ghar</p>
           <h1>AI Property Search Assistant</h1>
-          <p>Find premium Gurgaon homes with natural language search, AI filters, and smart property summaries.</p>
+          <p>Search properties in Gurgaon using natural language and get AI based recommendations.</p>
         </div>
         <form className="search-panel" onSubmit={handleSubmit}>
           <label htmlFor="search" className="search-label">
@@ -185,7 +185,7 @@ function App() {
             </button>
           </div>
           <div className="search-hint-row">
-            <span>Try "3BHK near metro under 1.2 crore" or "Affordable flat with gym and parking".</span>
+            <span>Try "2BHK in Sector 50 under 80 lakhs" or "3BHK near metro with gym".</span>
             <span>{voiceSupported ? 'Tap the mic to speak' : 'Voice search not supported'}</span>
           </div>
           {followupLoading && <div className="alert-box">Checking if a follow-up question would help...</div>}
@@ -200,7 +200,7 @@ function App() {
             <p className="results-count">{resultMessage}</p>
             <p className="results-note">Use the AI assistant to refine your search or explore premium options.</p>
           </div>
-          <div className="filter-badge">AI Powered Realty</div>
+          <div className="filter-badge">Smart Search</div>
         </div>
 
         <div className="grid-panel">
@@ -208,7 +208,7 @@ function App() {
             <article key={property.id} className="property-card">
               <div className="image-shell">
                 <img src={property.image} alt={property.title} />
-                <div className="match-chip">✦ {property.tags[0] || 'Premium Pick'}</div>
+                <div className="match-chip">✦ {property.tags[0] || 'Recommended'}</div>
               </div>
               <div className="card-content">
                 <h2>{property.title}</h2>
@@ -260,7 +260,7 @@ function App() {
                   </div>
                 </div>
                 <div className="summary-block">
-                  <strong>AI Summary</strong>
+                  <strong>Why this property matches</strong>
                   {summaryLoading ? (
                     <div className="loading-chip">Generating AI summary…</div>
                   ) : (
