@@ -1,52 +1,105 @@
 # 360 Ghar AI Property Search Assistant
 
-A polished, internship-ready React + Vite project for 360 Ghar, India's AI-powered real estate platform.
-
-## Project Overview
-
-This app lets users search Gurgaon properties in natural language. It uses OpenRouter to transform search queries into structured filters, rank and display properties in a premium card grid, and generate property summaries with AI.
+An AI-powered property search application built using React, Vite, and OpenRouter. The application allows users to search for properties using natural language and voice commands, making property discovery more intuitive and user-friendly.
 
 ## Features
 
-- Natural language property search with AI filter extraction
-- Responsive premium property cards with hover and glassmorphism styling
-- Intelligent ranking of properties when exact matches are not available
-- Property detail modal with AI-generated matching summary
-- Bonus follow-up question generation for vague queries
-- Voice search support using the browser Web Speech API
+* AI-powered property search
+* Natural language query understanding
+* Voice search using Web Speech API
+* Smart property filtering and ranking
+* Property cards with key details
+* AI-generated property summaries
+* Responsive and modern user interface
+* Follow-up questions for vague search queries
 
-## Setup Steps
+## Demo Search Queries
 
-1. Clone or open the project folder.
-2. Create a `.env` file in the root with the OpenRouter API key.
-3. Run:
+Try queries like:
+
+* 2BHK in Sector 50 under 80 lakhs near school
+* 3BHK near metro with gym
+* Property near Golf Course Road
+* Affordable 2BHK in Gurgaon
+
+## Tech Stack
+
+* React.js
+* Vite
+* JavaScript
+* OpenRouter API
+* CSS
+
+## Project Structure
+
+```text
+src/
+├── App.jsx
+├── App.css
+├── api.js
+├── properties.js
+└── main.jsx
+```
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Shani9027/360ghar-AI-Property-Search.git
+cd 360ghar-AI-Property-Search
+```
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Create a `.env` file in the project root:
+
+```env
+VITE_OPENROUTER_KEY=your_openrouter_api_key
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-## Environment Variables
+## How It Works
 
-Create a `.env` file at the project root with:
+1. User enters a property search query or uses voice input.
+2. The query is sent to OpenRouter for filter extraction.
+3. Extracted filters are applied to the property dataset.
+4. Matching properties are displayed in a responsive card layout.
+5. Users can open a property card to view an AI-generated summary.
 
-```env
-VITE_OPENROUTER_KEY=your_openrouter_api_key_here
-```
+## OpenRouter Integration
 
-## OpenRouter Model Used
+The application uses OpenRouter for:
 
-- `meta-llama/llama-3-8b-instruct:free`
+* Property filter extraction
+* AI-generated property summaries
+* Follow-up question generation
 
-## Architecture Notes
+The API key is loaded securely using environment variables and is not included in the repository.
 
-- `src/App.jsx` contains the main UI and search flow.
-- `src/api.js` handles OpenRouter requests and parsing logic.
-- `src/properties.js` stores mock Gurgaon property data.
-- `src/App.css` provides the complete dark luxury UI.
+## Learning Outcomes
 
-## Prompt Design Notes
+Through this project, I gained hands-on experience with:
 
-- Search parsing is handled by a strict system prompt that returns only raw JSON.
-- Property summaries use a professional advisor prompt with a warm tone and clear budget/location fit.
-- Follow-up questions are generated for vague search queries to improve user clarity.
+* AI API integration
+* Prompt engineering
+* React state management
+* Frontend application development
+* Voice search implementation
+* Environment variable management
+
+## Author
+
+Shani Sharma
+
+GitHub:
+https://github.com/Shani9027/360ghar-AI-Property-Search
