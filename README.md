@@ -107,15 +107,31 @@ The model is used for:
 * AI-generated property summaries
 * Follow-up question generation
 
+## Architecture Notes
+
+* `App.jsx` handles the main UI, search flow, and voice search integration.
+* `api.js` manages OpenRouter API requests and prompt handling.
+* `properties.js` contains the Gurgaon property dataset used for filtering and ranking.
+* User queries are sent to OpenRouter, which extracts structured search filters.
+* Matching properties are ranked and displayed in responsive property cards.
+* AI-generated summaries help users understand why a property matches their search.
+
 ## Prompt Design Notes
 
-* Used a structured system prompt to convert natural language property queries into JSON filters.
-* Extracted location, BHK type, budget, and preferences from user input.
-* Initially tested generic prompts but responses were inconsistent.
-* Switched to a strict JSON-only response format for reliable parsing.
-* Used OpenRouter free-tier models for both query understanding and property summaries.
-* Designed prompts to generate concise and personalized property recommendations.
-* Added follow-up question generation for vague or incomplete searches.
+* I used a structured system prompt that converts natural language property queries into JSON filters.
+* The prompt explicitly requests JSON-only output to simplify parsing.
+* Initially, I tried allowing free-form text responses, but parsing became unreliable and inconsistent.
+* I experimented with multiple free models on OpenRouter before selecting one that provided more stable structured outputs.
+* The chosen model offered a good balance between response quality, speed, and free availability.
+* Property summaries use a separate prompt focused on explaining why a property matches the user's requirements.
+* Follow-up questions are generated when the query lacks sufficient details, improving the overall search experience.
+
+## OpenRouter Model Used
+
+* OpenAI: gpt-oss-20b (free)
+
+Reason:
+Selected for reliable structured JSON output, good reasoning capability, and free availability through OpenRouter during development.
 
 ## Author
 
