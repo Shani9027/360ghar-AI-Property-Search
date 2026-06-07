@@ -97,6 +97,26 @@ Through this project, I gained hands-on experience with:
 * Voice search implementation
 * Environment variable management
 
+## OpenRouter Model Used
+
+* openai/gpt-oss-20b:free
+
+The model is used for:
+
+* Natural language query parsing
+* AI-generated property summaries
+* Follow-up question generation
+
+## Prompt Design Notes
+
+* Used a structured system prompt to convert natural language property queries into JSON filters.
+* Extracted location, BHK type, budget, and preferences from user input.
+* Initially tested generic prompts but responses were inconsistent.
+* Switched to a strict JSON-only response format for reliable parsing.
+* Used OpenRouter free-tier models for both query understanding and property summaries.
+* Designed prompts to generate concise and personalized property recommendations.
+* Added follow-up question generation for vague or incomplete searches.
+
 ## Author
 
 Shani Sharma
